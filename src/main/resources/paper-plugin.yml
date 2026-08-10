@@ -1,0 +1,9 @@
+name: StillAlive
+description: $description
+version: '${version}'
+
+main: me.biquaternions.stillalive.StillAlive
+api-version: '26.1.2'
+load: STARTUP
+
+authors: [ Biquaternions ]

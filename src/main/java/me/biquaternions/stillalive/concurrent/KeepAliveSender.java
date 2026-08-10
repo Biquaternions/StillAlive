@@ -2,6 +2,7 @@ package me.biquaternions.stillalive.concurrent;
 
 import lombok.RequiredArgsConstructor;
 import me.biquaternions.stillalive.manager.TickWatchdog;
+import me.biquaternions.stillalive.misc.Constants;
 import net.minecraft.server.network.ServerCommonPacketListenerImpl;
 import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.entity.CraftPlayer;
@@ -32,6 +33,8 @@ public class KeepAliveSender implements Runnable {
     private final JavaPlugin plugin;
     private final TickWatchdog watchdog;
 
+    private long tick = 0;
+
     @Override
     public void run() {
         if (!this.watchdog.isReady()) {
@@ -39,6 +42,10 @@ public class KeepAliveSender implements Runnable {
         }
         if (!this.watchdog.isStalled()) {
             return;
+        }
+
+        if (++this.tick % Constants.TICKS_PER_SECOND == 0) {
+            this.plugin.getSLF4JLogger().warn("Server stalled, sending keepalive packets asynchronously...");
         }
 
         try {

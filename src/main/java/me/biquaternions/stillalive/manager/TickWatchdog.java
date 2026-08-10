@@ -2,12 +2,9 @@ package me.biquaternions.stillalive.manager;
 
 import lombok.Getter;
 import lombok.Setter;
-
-import java.time.Duration;
+import me.biquaternions.stillalive.misc.Constants;
 
 public class TickWatchdog {
-
-    private static final long STALLED_THRESHOLD = Duration.ofSeconds(2).toMillis();
 
     @Getter
     @Setter
@@ -18,7 +15,7 @@ public class TickWatchdog {
     private volatile boolean ready;
 
     public boolean isStalled() {
-        return (System.currentTimeMillis() - this.lastTickMillis) > STALLED_THRESHOLD;
+        return (System.currentTimeMillis() - this.lastTickMillis) > Constants.STALLED_THRESHOLD;
     }
 
 }
